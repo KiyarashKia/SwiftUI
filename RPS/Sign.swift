@@ -51,26 +51,32 @@ enum Sign {
         
         switch self {   // Defining states and applying rules for each case and possibilities
         case .rock:
+            // Condition / Rules to be applied if the chose sign is Rock
             if opponentSign == .scissors || opponentSign == .lizard {
                 return .win
             }
         case .paper:
+            // Condition / Rules to be applied if the chose sign is Paper
             if opponentSign == .rock || opponentSign == .spock {
                 return .win
             }
         case .scissors:
+            // Condition / Rules to be applied if the chose sign is Scissors
             if opponentSign == .paper || opponentSign == .lizard {
                 return .win
             }
         case .lizard:
+            // Condition / Rules to be applied if the chose sign is Lizard
             if opponentSign == .paper || opponentSign == .spock {
                 return .win
             }
         case .spock:
+            // Condition / Rules to be applied if the chose sign is Spock
             if opponentSign == .scissors || opponentSign == .rock {
                 return .win
             }
         }
+        // If no winning condition is met, it is a lose
         return .lose
     }
 }
