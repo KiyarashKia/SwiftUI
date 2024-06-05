@@ -18,12 +18,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var spockButton: UIButton!       // Spock Button
     
     @IBOutlet weak var playAgainButton: UIButton!   // Play again button
-        
+    
     @IBOutlet weak var winCounter: UILabel!  // Label for Win Count
     @IBOutlet weak var drawCounter: UILabel! // Label for Draw Count
     @IBOutlet weak var lossCounter: UILabel! // Label for Loss Count
     
-    
+    // Variables to be used for counter part
     var winCount = 0
     var drawCount = 0
     var lossCount = 0
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         updateUI(forState: .start)      // Initialize he UI to the start state
-        updateCounters()
+        updateCounters()       // Play again button
     }
 
     // Action method for when each sign button is pressed by user
@@ -66,11 +66,13 @@ class ViewController: UIViewController {
     //  Updates te UI based on the current state
     func updateUI(forState state: GameState) {
         statusLabel.text = state.status // Updates the game status label
-        updateCounters()
+        
+        updateCounters() // Method to update the counter
         // Switch cast to set the state accordingly
+        
         switch state {
         case .start:
-            view.backgroundColor = .gray // Setting the BG color to gray
+            view.backgroundColor = .lightGray // Setting the BG color to gray
             
             signLabel.text = "🤖"   // Computer sign
             playAgainButton.isHidden = true // Hiding the play again button in the start state
@@ -108,6 +110,7 @@ class ViewController: UIViewController {
         
         signLabel.text = computerSign.emoji // Shows the emoji of computer's choice
         
+        // Handling Wins, Losses and Draws per each state
         switch gameState {
         case .win:
             winCount += 1
@@ -146,7 +149,7 @@ class ViewController: UIViewController {
         }
         playAgainButton.isHidden = false    // Showing the play again button
     }
-    
+    // Functoion that shows the updated counter
     func updateCounters() {
         winCounter.text = "\(winCount)"
         drawCounter.text = "\(drawCount)"
