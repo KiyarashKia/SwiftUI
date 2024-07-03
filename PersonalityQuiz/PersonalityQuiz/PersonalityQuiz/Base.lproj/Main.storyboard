@@ -144,9 +144,9 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnZ-tT-Fdi">
-                                <rect key="frame" x="176" y="158" width="78" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnZ-tT-Fdi">
+                                <rect key="frame" x="20" y="158" width="390" height="38.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -246,29 +246,32 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KZj-xo-A2S">
+                                <rect key="frame" x="70" y="868" width="290" height="4"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="93K-Sx-EfQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Sfh-o9-aZX" firstAttribute="centerY" secondItem="f3a-9K-FxL" secondAttribute="centerY" id="3z5-SA-XCZ"/>
                             <constraint firstItem="YX5-KA-nwT" firstAttribute="centerY" secondItem="f3a-9K-FxL" secondAttribute="centerY" id="6sv-j7-pPS"/>
+                            <constraint firstItem="93K-Sx-EfQ" firstAttribute="trailing" secondItem="TnZ-tT-Fdi" secondAttribute="trailing" constant="20" id="Avi-IH-z5o"/>
+                            <constraint firstItem="93K-Sx-EfQ" firstAttribute="bottom" secondItem="KZj-xo-A2S" secondAttribute="bottom" constant="50" id="Chn-x2-sYU"/>
                             <constraint firstItem="93K-Sx-EfQ" firstAttribute="trailing" secondItem="ELC-K5-UCp" secondAttribute="trailing" constant="20" id="FIV-fD-Ahp"/>
                             <constraint firstItem="YX5-KA-nwT" firstAttribute="leading" secondItem="93K-Sx-EfQ" secondAttribute="leading" constant="20" id="FJL-Ga-x0i"/>
+                            <constraint firstItem="93K-Sx-EfQ" firstAttribute="trailing" secondItem="KZj-xo-A2S" secondAttribute="trailing" constant="70" id="Gkq-wc-EEw"/>
                             <constraint firstItem="93K-Sx-EfQ" firstAttribute="trailing" secondItem="Sfh-o9-aZX" secondAttribute="trailing" constant="20" id="HOl-TK-gIf"/>
                             <constraint firstItem="TnZ-tT-Fdi" firstAttribute="centerX" secondItem="YX5-KA-nwT" secondAttribute="centerX" id="Yzp-3r-rrL"/>
                             <constraint firstItem="Sfh-o9-aZX" firstAttribute="leading" secondItem="93K-Sx-EfQ" secondAttribute="leading" constant="20" id="asB-DT-KU7"/>
+                            <constraint firstItem="TnZ-tT-Fdi" firstAttribute="top" secondItem="93K-Sx-EfQ" secondAttribute="top" constant="20" id="cXM-cC-l9t"/>
                             <constraint firstItem="ELC-K5-UCp" firstAttribute="centerX" secondItem="f3a-9K-FxL" secondAttribute="centerX" id="hiI-gn-SaM"/>
+                            <constraint firstItem="TnZ-tT-Fdi" firstAttribute="leading" secondItem="93K-Sx-EfQ" secondAttribute="leading" constant="20" id="iIf-eu-rJW"/>
                             <constraint firstItem="ELC-K5-UCp" firstAttribute="centerY" secondItem="f3a-9K-FxL" secondAttribute="centerY" id="lQO-4a-sWw"/>
                             <constraint firstItem="93K-Sx-EfQ" firstAttribute="trailing" secondItem="YX5-KA-nwT" secondAttribute="trailing" constant="20" id="oXe-Jf-Byg"/>
                             <constraint firstItem="TnZ-tT-Fdi" firstAttribute="top" secondItem="93K-Sx-EfQ" secondAttribute="top" constant="102" id="sBJ-dT-0fe"/>
                             <constraint firstItem="ELC-K5-UCp" firstAttribute="leading" secondItem="93K-Sx-EfQ" secondAttribute="leading" constant="20" id="sJJ-aE-mW2"/>
+                            <constraint firstItem="KZj-xo-A2S" firstAttribute="leading" secondItem="93K-Sx-EfQ" secondAttribute="leading" constant="70" id="xdS-sw-ecM"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="ELC-K5-UCp"/>
-                                <exclude reference="Sfh-o9-aZX"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Ywy-JQ-UMD"/>
                     <connections>
