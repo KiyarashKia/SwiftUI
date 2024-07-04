@@ -122,6 +122,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Button" cornerStyle="large">
                                             <color key="baseForegroundColor" name="AccentColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="singleAnswerButtonPressed:" destination="UdV-S7-muh" eventType="touchUpInside" id="vAd-7d-prC"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-o0-xNa">
                                         <rect key="frame" x="0.0" y="58.333333333333371" width="390" height="38.333333333333343"/>
@@ -150,7 +153,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="YX5-KA-nwT" userLabel="Ranged Stack">
-                                <rect key="frame" x="20" y="351.66666666666669" width="390" height="219.00000000000006"/>
+                                <rect key="frame" x="20" y="396.66666666666669" width="390" height="128.66666666666669"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Iuu-pv-gkL">
                                         <rect key="frame" x="-2" y="0.0" width="394" height="31"/>
@@ -172,31 +175,19 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FSh-cJ-Cny">
-                                        <rect key="frame" x="-2" y="90.333333333333314" width="394" height="31"/>
-                                    </slider>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="LBM-nQ-dH5">
-                                        <rect key="frame" x="0.0" y="140.33333333333331" width="390" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="90.333333333333314" width="390" height="38.333333333333343"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzc-0A-9e4">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-a2-1dR">
-                                                <rect key="frame" x="348.66666666666669" y="0.0" width="41.333333333333314" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLr-w1-r6n">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="38.333333333333336"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Submit"/>
+                                                <connections>
+                                                    <action selector="rangedAnswerButtonPressed" destination="UdV-S7-muh" eventType="touchUpInside" id="gTt-lP-lTF"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLr-w1-r6n">
-                                        <rect key="frame" x="0.0" y="180.66666666666669" width="390" height="38.333333333333343"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Submit"/>
-                                    </button>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Sfh-o9-aZX" userLabel="Multiple Stack">
@@ -262,6 +253,9 @@
                                         <rect key="frame" x="0.0" y="203.99999999999994" width="390" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Submit"/>
+                                        <connections>
+                                            <action selector="multipleAnswerButtonPressed" destination="UdV-S7-muh" eventType="touchUpInside" id="Jxw-lB-JiF"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -293,19 +287,21 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ywy-JQ-UMD"/>
                     <connections>
+                        <outlet property="label1" destination="Xfo-VQ-HBc" id="AhT-h1-f1M"/>
+                        <outlet property="label2" destination="znJ-1g-mfl" id="Crk-2Q-FZ0"/>
                         <outlet property="multiLabel1" destination="jHz-r9-sgN" id="x0b-fv-1DN"/>
                         <outlet property="multiLabel2" destination="Pis-Bo-Wmt" id="oPg-0X-7j7"/>
                         <outlet property="multiLabel3" destination="eA3-XP-UKf" id="DGZ-NX-HN1"/>
                         <outlet property="multiLabel4" destination="1Ih-KU-lyL" id="9JA-3O-U6d"/>
+                        <outlet property="multiSwitch1" destination="oVD-hy-XdZ" id="fNn-3V-4QM"/>
+                        <outlet property="multiSwitch2" destination="qSI-pW-vmo" id="4o9-4C-t9o"/>
+                        <outlet property="multiSwitch3" destination="EFs-2Z-YuT" id="azQ-pu-ZgP"/>
+                        <outlet property="multiSwitch4" destination="Cm8-7e-4oM" id="aqE-eU-7ZP"/>
                         <outlet property="multipleStackView" destination="Sfh-o9-aZX" id="ell-vJ-eGe"/>
                         <outlet property="questionLabel" destination="TnZ-tT-Fdi" id="HRk-vz-AUk"/>
                         <outlet property="questionProgressView" destination="KZj-xo-A2S" id="YcJ-XF-dYl"/>
-                        <outlet property="rangedLabel1Left" destination="Xfo-VQ-HBc" id="0gK-xE-ejm"/>
-                        <outlet property="rangedLabel1Right" destination="znJ-1g-mfl" id="mfH-CO-TKS"/>
-                        <outlet property="rangedLabel2Left" destination="Gzc-0A-9e4" id="pak-rN-Kfw"/>
-                        <outlet property="rangedLabel2Right" destination="eoa-a2-1dR" id="agZ-iI-sa1"/>
+                        <outlet property="rangedSlider" destination="Iuu-pv-gkL" id="t7e-eL-Z7h"/>
                         <outlet property="rangedStackView" destination="YX5-KA-nwT" id="FHD-2Q-unN"/>
-                        <outlet property="s" destination="oVD-hy-XdZ" id="ckV-jq-aE9"/>
                         <outlet property="singleButton1" destination="UWE-CP-QfV" id="VJW-GM-do7"/>
                         <outlet property="singleButton2" destination="0QY-o0-xNa" id="Ul2-6d-8Eu"/>
                         <outlet property="singleButton3" destination="NLw-al-LcF" id="8Qt-4l-or3"/>
@@ -399,7 +395,7 @@
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
