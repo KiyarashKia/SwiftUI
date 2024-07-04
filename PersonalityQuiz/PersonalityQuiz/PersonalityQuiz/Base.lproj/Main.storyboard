@@ -307,7 +307,7 @@
                         <outlet property="singleButton3" destination="NLw-al-LcF" id="8Qt-4l-or3"/>
                         <outlet property="singleButton4" destination="WFF-P5-w5d" id="aDc-Rk-vwn"/>
                         <outlet property="singleStackView" destination="ELC-K5-UCp" id="ahD-Jk-gtr"/>
-                        <segue destination="jVu-vq-xNH" kind="show" identifier="Results" id="a7Q-62-UHk"/>
+                        <segue destination="jVu-vq-xNH" kind="show" identifier="Results" destinationCreationSelector="showResults:" id="a7Q-62-UHk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Fh-v6-GhQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -363,10 +363,19 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Results" prompt=" " customizationIdentifier="" id="FBQ-2h-cS0">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="1Oe-pB-f6M"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="1Oe-pB-f6M">
+                            <connections>
+                                <segue destination="cyc-Pt-9K2" kind="unwind" unwindAction="unwindToQuizIntroductionWithSegue:" id="3Rz-eR-dhf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="resultAnswerLabel" destination="RSs-en-hr2" id="QCe-gE-hCr"/>
+                        <outlet property="resultDefinitionLabel" destination="qpI-O8-6Rc" id="kHs-mb-DGo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tw-1L-OKJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="cyc-Pt-9K2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2839.5348837209303" y="-27.038626609442062"/>
         </scene>
