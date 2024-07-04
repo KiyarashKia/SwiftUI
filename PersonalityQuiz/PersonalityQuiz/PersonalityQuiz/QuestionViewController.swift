@@ -8,7 +8,31 @@
 import UIKit
 
 class QuestionViewController: UIViewController {
+    @IBOutlet var questionLabel: UILabel!
     
+    @IBOutlet weak var singleStackView: UIStackView!
+        @IBOutlet var singleButton1: UIButton!
+        @IBOutlet var singleButton2: UIButton!
+        @IBOutlet var singleButton3: UIButton!
+        @IBOutlet var singleButton4: UIButton!
+    
+    
+    @IBOutlet weak var multipleStackView: UIStackView!
+        @IBOutlet var multiLabel1: UILabel!
+        @IBOutlet var multiLabel2: UILabel!
+        @IBOutlet var multiLabel3: UILabel!
+        @IBOutlet var multiLabel4: UILabel!
+    
+    
+    @IBOutlet weak var rangedStackView: UIStackView!
+        @IBOutlet var rangedLabel1Left: UILabel!
+        @IBOutlet var rangedLabel1Right: UILabel!
+    
+        @IBOutlet var rangedLabel2Left: UILabel!
+        @IBOutlet var rangedLabel2Right: UILabel!
+    
+    
+    @IBOutlet var questionProgressView: UIProgressView!
     
     var questions: [Question] = [
     Question(
@@ -69,12 +93,33 @@ class QuestionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateUI()
         // Do any additional setup after loading the view.
     }
     
     var questionIndex = 0
     var answerChosen: [Answer] = []
     
+    
+    func updateUI() {
+        singleStackView.isHidden = true
+        multipleStackView.isHidden = true
+        rangedStackView.isHidden = true
+        
+        navigationItem.title = "Question #\(questionIndex + 1)"
+        
+        let currentQuestion = questions[questionIndex]
+        
+        switch currentQuestion.type {
+        case .single:
+            singleStackView.isHidden = false
+            
+        case .multiple:
+            multipleStackView.isHidden = false
+            
+        case .ranged:
+            rangedStackView.isHidden = false
+        }
+    }
     
 }
