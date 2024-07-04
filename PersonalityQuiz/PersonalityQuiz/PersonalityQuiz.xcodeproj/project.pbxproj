@@ -64,10 +64,10 @@
 		3DE1EDDF2C35D2E100019CB4 /* PersonalityQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				3DE1EDE42C35D2E100019CB4 /* IntroductionViewController.swift */,
 				3DE1EDFA2C36118B00019CB4 /* Answers.swift */,
 				3DE1EDE02C35D2E100019CB4 /* AppDelegate.swift */,
 				3DE1EDE22C35D2E100019CB4 /* SceneDelegate.swift */,
-				3DE1EDE42C35D2E100019CB4 /* IntroductionViewController.swift */,
 				3DE1EDF42C3605FE00019CB4 /* QuestionViewController.swift */,
 				3DE1EDF62C36062600019CB4 /* ResultsViewController.swift */,
 				3DE1EDF82C3610B600019CB4 /* Question.swift */,

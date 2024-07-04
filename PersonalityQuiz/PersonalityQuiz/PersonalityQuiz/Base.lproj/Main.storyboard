@@ -46,7 +46,7 @@
                                             </attributedString>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="gaA-Zp-2I3" kind="show" id="TbL-dd-8UU"/>
+                                            <segue destination="gaA-Zp-2I3" kind="show" identifier="UIStoryboardSegue" id="TbL-dd-8UU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -133,6 +133,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Button" cornerStyle="large">
                                             <color key="baseForegroundColor" name="AccentColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="singleAnswerButtonPressed:" destination="UdV-S7-muh" eventType="touchUpInside" id="cGg-JK-QEE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLw-al-LcF">
                                         <rect key="frame" x="0.0" y="116.66666666666667" width="390" height="38.333333333333329"/>
@@ -141,6 +144,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Button" cornerStyle="large">
                                             <color key="baseForegroundColor" name="AccentColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="singleAnswerButtonPressed:" destination="UdV-S7-muh" eventType="touchUpInside" id="rlS-nC-Hn0"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFF-P5-w5d">
                                         <rect key="frame" x="0.0" y="175.00000000000006" width="390" height="38.333333333333343"/>
@@ -149,6 +155,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Button" cornerStyle="large">
                                             <color key="baseForegroundColor" name="AccentColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="singleAnswerButtonPressed:" destination="UdV-S7-muh" eventType="touchUpInside" id="jUh-DT-4CW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -365,7 +374,7 @@
                     <navigationItem key="navigationItem" title="Results" prompt=" " customizationIdentifier="" id="FBQ-2h-cS0">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="1Oe-pB-f6M">
                             <connections>
-                                <segue destination="cyc-Pt-9K2" kind="unwind" unwindAction="unwindToQuizIntroductionWithSegue:" id="3Rz-eR-dhf"/>
+                                <segue destination="YHR-Eg-Mr9" kind="unwind" unwindAction="unwindToQuizIntroductionWithSegue:" id="WOt-HM-h5I"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -375,7 +384,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tw-1L-OKJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="cyc-Pt-9K2" userLabel="Exit" sceneMemberID="exit"/>
+                <exit id="YHR-Eg-Mr9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2839.5348837209303" y="-27.038626609442062"/>
         </scene>
@@ -404,7 +413,7 @@
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
