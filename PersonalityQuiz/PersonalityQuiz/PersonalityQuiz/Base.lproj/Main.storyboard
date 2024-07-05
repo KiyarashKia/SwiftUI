@@ -11,7 +11,7 @@
         <!--Introduction View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="IntroductionViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="IntroductionViewController" customModule="PersonalityQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,7 +374,7 @@
                     <navigationItem key="navigationItem" title="Results" prompt=" " customizationIdentifier="" id="FBQ-2h-cS0">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="1Oe-pB-f6M">
                             <connections>
-                                <segue destination="YHR-Eg-Mr9" kind="unwind" unwindAction="unwindToQuizIntroductionWithSegue:" id="WOt-HM-h5I"/>
+                                <segue destination="YHR-Eg-Mr9" kind="unwind" unwindAction="unwindToQuizIntroductionWithSegue:" id="M7L-Vc-Q7k"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
