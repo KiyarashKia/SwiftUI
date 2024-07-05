@@ -13,7 +13,10 @@ class ResultsViewController: UIViewController {
     @IBOutlet weak var resultAnswerLabel: UILabel!
     @IBOutlet weak var resultDefinitionLabel: UILabel!
     
-    // Variable to hold the responses passed from the previous view controller
+    @IBOutlet weak var showTips: UIButton!
+    @IBOutlet weak var tipsLabel: UILabel!
+    
+    
     var responses: [Answer]
     
     // Custom initializer to handle the responses passed from the previous view controller
@@ -58,5 +61,19 @@ class ResultsViewController: UIViewController {
         // Update the result labels with the most common answer and its definition
         resultAnswerLabel.text = "You are a \(mostCommonAnswer.rawValue)!"
         resultDefinitionLabel.text = mostCommonAnswer.definition
+        let tipsText = "\n\n                                Tips for you:\n\n\(mostCommonAnswer.tips)"
+                tipsLabel.text = tipsText
+        
+        tipsLabel.isHidden = true
     }
+    
+    
+    @IBAction func showTipsPressed(_ sender: UIButton) {
+        tipsLabel.isHidden = false
+        
+        showTips.isHidden = true
+        
+    }
+    
+    
 }

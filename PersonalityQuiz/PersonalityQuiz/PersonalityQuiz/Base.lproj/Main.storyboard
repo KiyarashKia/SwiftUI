@@ -331,11 +331,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vDZ-Ax-TjZ">
-                                <rect key="frame" x="20" y="361" width="390" height="120.33333333333331"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="baG-tA-211">
+                                <rect key="frame" x="20" y="371.66666666666669" width="390" height="179.00000000000006"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSs-en-hr2">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                                        <rect key="frame" x="136.66666666666666" y="0.0" width="116.66666666666666" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="BKN-dl-diX"/>
                                         </constraints>
@@ -344,31 +344,35 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpI-O8-6Rc">
-                                        <rect key="frame" x="0.0" y="100" width="390" height="20.333333333333329"/>
+                                        <rect key="frame" x="174.33333333333334" y="100" width="41.333333333333343" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLW-U2-Y25">
+                                        <rect key="frame" x="137.66666666666666" y="120.3333333333333" width="114.66666666666666" height="38.333333333333329"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Tips for me!"/>
+                                        <connections>
+                                            <action selector="showTipsPressed:" destination="jVu-vq-xNH" eventType="touchUpInside" id="LkO-Zf-kIO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDx-bI-VWe">
+                                        <rect key="frame" x="174.33333333333334" y="158.66666666666669" width="41.333333333333343" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="RSs-en-hr2" firstAttribute="centerY" secondItem="vDZ-Ax-TjZ" secondAttribute="centerY" constant="-20" id="0kP-4d-oLo"/>
-                                    <constraint firstItem="RSs-en-hr2" firstAttribute="top" secondItem="vDZ-Ax-TjZ" secondAttribute="top" id="LVp-K4-gNo"/>
-                                    <constraint firstItem="RSs-en-hr2" firstAttribute="top" secondItem="vDZ-Ax-TjZ" secondAttribute="top" id="Y2x-X0-RYD"/>
-                                    <constraint firstItem="qpI-O8-6Rc" firstAttribute="top" secondItem="vDZ-Ax-TjZ" secondAttribute="top" constant="100" id="caf-Ct-VVP"/>
-                                    <constraint firstItem="RSs-en-hr2" firstAttribute="centerX" secondItem="vDZ-Ax-TjZ" secondAttribute="centerX" id="i7a-Ng-tHW"/>
-                                    <constraint firstItem="RSs-en-hr2" firstAttribute="leading" secondItem="vDZ-Ax-TjZ" secondAttribute="leading" id="lqc-MW-vsb"/>
-                                    <constraint firstItem="qpI-O8-6Rc" firstAttribute="top" secondItem="RSs-en-hr2" secondAttribute="bottom" id="oTf-LO-uAb"/>
-                                    <constraint firstAttribute="trailing" secondItem="RSs-en-hr2" secondAttribute="trailing" id="qiX-Tp-Jzf"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YQ5-yF-m56"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDZ-Ax-TjZ" firstAttribute="top" secondItem="YQ5-yF-m56" secondAttribute="top" constant="271" id="5DA-Vk-xrv"/>
-                            <constraint firstItem="vDZ-Ax-TjZ" firstAttribute="trailing" secondItem="q2W-mG-10c" secondAttribute="trailingMargin" id="CPw-Re-zE5"/>
-                            <constraint firstItem="vDZ-Ax-TjZ" firstAttribute="centerY" secondItem="q2W-mG-10c" secondAttribute="centerY" id="Y0l-7F-I6p"/>
-                            <constraint firstItem="vDZ-Ax-TjZ" firstAttribute="leading" secondItem="q2W-mG-10c" secondAttribute="leadingMargin" id="hkV-N8-2Qe"/>
+                            <constraint firstItem="baG-tA-211" firstAttribute="leading" secondItem="YQ5-yF-m56" secondAttribute="leading" constant="20" id="1y6-In-HRY"/>
+                            <constraint firstItem="baG-tA-211" firstAttribute="centerX" secondItem="q2W-mG-10c" secondAttribute="centerX" id="MfB-bG-qz4"/>
+                            <constraint firstItem="baG-tA-211" firstAttribute="centerY" secondItem="q2W-mG-10c" secondAttribute="centerY" id="ywF-JQ-C0u"/>
+                            <constraint firstItem="YQ5-yF-m56" firstAttribute="trailing" secondItem="baG-tA-211" secondAttribute="trailing" constant="20" id="zph-mU-tDG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Results" prompt=" " customizationIdentifier="" id="FBQ-2h-cS0">
@@ -381,6 +385,8 @@
                     <connections>
                         <outlet property="resultAnswerLabel" destination="RSs-en-hr2" id="QCe-gE-hCr"/>
                         <outlet property="resultDefinitionLabel" destination="qpI-O8-6Rc" id="kHs-mb-DGo"/>
+                        <outlet property="showTips" destination="iLW-U2-Y25" id="f96-83-ByP"/>
+                        <outlet property="tipsLabel" destination="vDx-bI-VWe" id="rqY-R6-ywr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tw-1L-OKJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
