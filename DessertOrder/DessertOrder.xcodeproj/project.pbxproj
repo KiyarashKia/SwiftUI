@@ -15,6 +15,8 @@
 		3D0E436D2C38D29000E6623C /* vanilla_frosting_donut.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D0E43662C38D29000E6623C /* vanilla_frosting_donut.png */; };
 		3D0E436E2C38D29000E6623C /* cinnamon_sugar_donut.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D0E43672C38D29000E6623C /* cinnamon_sugar_donut.png */; };
 		3D0E43742C38D99200E6623C /* choose.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D0E43732C38D99100E6623C /* choose.png */; };
+		3DA8CFC12C39987900595DCA /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA8CFC02C39987900595DCA /* Purchase.swift */; };
+		3DA8CFC32C39998B00595DCA /* managerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA8CFC22C39998B00595DCA /* managerViewController.swift */; };
 		3DB974112C388DD300FADB3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB974102C388DD300FADB3B /* AppDelegate.swift */; };
 		3DB974132C388DD300FADB3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB974122C388DD300FADB3B /* SceneDelegate.swift */; };
 		3DB974152C388DD300FADB3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB974142C388DD300FADB3B /* ViewController.swift */; };
@@ -33,6 +35,8 @@
 		3D0E43662C38D29000E6623C /* vanilla_frosting_donut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vanilla_frosting_donut.png; sourceTree = "<group>"; };
 		3D0E43672C38D29000E6623C /* cinnamon_sugar_donut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cinnamon_sugar_donut.png; sourceTree = "<group>"; };
 		3D0E43732C38D99100E6623C /* choose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choose.png; sourceTree = "<group>"; };
+		3DA8CFC02C39987900595DCA /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		3DA8CFC22C39998B00595DCA /* managerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managerViewController.swift; sourceTree = "<group>"; };
 		3DB9740D2C388DD300FADB3B /* DessertOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DessertOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB974102C388DD300FADB3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DB974122C388DD300FADB3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				3DB974122C388DD300FADB3B /* SceneDelegate.swift */,
 				3DB974142C388DD300FADB3B /* ViewController.swift */,
 				3DB974162C388DD300FADB3B /* Main.storyboard */,
+				3DA8CFC22C39998B00595DCA /* managerViewController.swift */,
+				3DA8CFC02C39987900595DCA /* Purchase.swift */,
 				3DB974192C388DD500FADB3B /* Assets.xcassets */,
 				3DB3C5452C38CFF500264FCC /* Images */,
 				3DB9741B2C388DD500FADB3B /* LaunchScreen.storyboard */,
@@ -182,6 +188,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB974272C388E5300FADB3B /* Items.swift in Sources */,
+				3DA8CFC12C39987900595DCA /* Purchase.swift in Sources */,
+				3DA8CFC32C39998B00595DCA /* managerViewController.swift in Sources */,
 				3DB974152C388DD300FADB3B /* ViewController.swift in Sources */,
 				3DB974112C388DD300FADB3B /* AppDelegate.swift in Sources */,
 				3DB974132C388DD300FADB3B /* SceneDelegate.swift in Sources */,
