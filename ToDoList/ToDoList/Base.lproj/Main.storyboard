@@ -149,7 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="XS0-s3-BEv">
-                                <rect key="frame" x="50" y="53" width="320" height="575.33333333333337"/>
+                                <rect key="frame" x="36" y="134" width="320" height="575.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXc-cE-enh">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="20.333333333333332"/>
@@ -161,7 +161,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title.." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-n6-TLL">
-                                        <rect key="frame" x="0.0" y="52.333333333333329" width="320" height="19"/>
+                                        <rect key="frame" x="0.0" y="52.333333333333343" width="320" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="4yz-5N-sMK"/>
                                         </constraints>
@@ -176,13 +176,12 @@
                                         <rect key="frame" x="0.0" y="352.33333333333331" width="320" height="151.33333333333331"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150.66999999999999" id="2F8-LA-99j"/>
+                                            <constraint firstAttribute="height" priority="750" constant="150.66999999999999" id="2F8-LA-99j"/>
                                             <constraint firstAttribute="width" constant="320" id="FYL-8z-Wlt"/>
                                         </constraints>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <dataDetectorType key="dataDetectorTypes" calendarEvent="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb0-hk-9r0">
                                         <rect key="frame" x="0.0" y="535.66666666666663" width="320" height="39.666666666666629"/>
@@ -203,9 +202,10 @@
                         <viewLayoutGuide key="safeArea" id="JO0-DZ-lZG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="XS0-s3-BEv" firstAttribute="leading" secondItem="JO0-DZ-lZG" secondAttribute="leading" constant="50" id="2h5-Px-iy8"/>
-                            <constraint firstItem="XS0-s3-BEv" firstAttribute="top" secondItem="JO0-DZ-lZG" secondAttribute="top" constant="53" id="3Pc-ii-Fin"/>
-                            <constraint firstItem="JO0-DZ-lZG" firstAttribute="bottom" secondItem="XS0-s3-BEv" secondAttribute="bottom" constant="213.66666666666663" id="Qcd-jC-czN"/>
+                            <constraint firstItem="XS0-s3-BEv" firstAttribute="leading" secondItem="JO0-DZ-lZG" secondAttribute="leading" constant="36" id="2h5-Px-iy8"/>
+                            <constraint firstItem="XS0-s3-BEv" firstAttribute="top" secondItem="JO0-DZ-lZG" secondAttribute="top" constant="134" id="3Pc-ii-Fin"/>
+                            <constraint firstItem="XS0-s3-BEv" firstAttribute="centerX" secondItem="njD-Wv-OTX" secondAttribute="centerX" id="DF5-kV-cn2"/>
+                            <constraint firstItem="JO0-DZ-lZG" firstAttribute="bottom" secondItem="XS0-s3-BEv" secondAttribute="bottom" constant="132.66666666666663" id="Qcd-jC-czN"/>
                             <constraint firstItem="XS0-s3-BEv" firstAttribute="centerX" secondItem="njD-Wv-OTX" secondAttribute="centerX" id="zc8-tc-2sp"/>
                         </constraints>
                     </view>
@@ -230,8 +230,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="GFb-dO-aw3">
+                            <rect key="frame" x="0.0" y="125.66666793823242" width="393" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="0.30000631529999999" green="0.26355593820000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="b6I-6i-J7k">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoItems" id="b6I-6i-J7k">
                                 <rect key="frame" x="0.0" y="50" width="393" height="47.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b6I-6i-J7k" id="Jtz-bl-xXU">
@@ -246,10 +251,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xEb-Kp-u3t"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="GFb-dO-aw3" id="xDI-79-45n"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ww-af-cHG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2731" y="-27"/>
+            <point key="canvasLocation" x="2730.5343511450383" y="-27.464788732394368"/>
         </scene>
     </scenes>
     <resources>
