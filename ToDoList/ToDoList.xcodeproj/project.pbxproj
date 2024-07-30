@@ -15,6 +15,9 @@
 		3D10C1AE2C55B1F400F9A905 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3D10C1AD2C55B1F400F9A905 /* Base */; };
 		3D10C1B62C55CB4400F9A905 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D10C1B52C55CB4400F9A905 /* SplashViewController.swift */; };
 		3D10C1BA2C55D51B00F9A905 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D10C1B92C55D51B00F9A905 /* MainMenuViewController.swift */; };
+		3D5753632C58624500B022C7 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753622C58624500B022C7 /* AddReminderViewController.swift */; };
+		3D5753652C586A4B00B022C7 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753642C586A4B00B022C7 /* ToDoItem.swift */; };
+		3D5753672C586DB200B022C7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753662C586DB200B022C7 /* ToDoListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		3D10C1AF2C55B1F400F9A905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D10C1B52C55CB4400F9A905 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		3D10C1B92C55D51B00F9A905 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		3D5753622C58624500B022C7 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
+		3D5753642C586A4B00B022C7 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		3D5753662C586DB200B022C7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,9 @@
 				3D10C1AC2C55B1F400F9A905 /* LaunchScreen.storyboard */,
 				3D10C1AF2C55B1F400F9A905 /* Info.plist */,
 				3D10C1B92C55D51B00F9A905 /* MainMenuViewController.swift */,
+				3D5753622C58624500B022C7 /* AddReminderViewController.swift */,
+				3D5753642C586A4B00B022C7 /* ToDoItem.swift */,
+				3D5753662C586DB200B022C7 /* ToDoListViewController.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -144,10 +153,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D5753672C586DB200B022C7 /* ToDoListViewController.swift in Sources */,
 				3D10C1A62C55B1F300F9A905 /* ViewController.swift in Sources */,
 				3D10C1BA2C55D51B00F9A905 /* MainMenuViewController.swift in Sources */,
+				3D5753652C586A4B00B022C7 /* ToDoItem.swift in Sources */,
 				3D10C1A22C55B1F300F9A905 /* AppDelegate.swift in Sources */,
 				3D10C1A42C55B1F300F9A905 /* SceneDelegate.swift in Sources */,
+				3D5753632C58624500B022C7 /* AddReminderViewController.swift in Sources */,
 				3D10C1B62C55CB4400F9A905 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
