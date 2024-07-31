@@ -31,6 +31,8 @@ class MainMenuViewController: UIViewController {
     @IBAction func createNewListTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "AddReminderViewController", sender: self)
     }
+    
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddReminderViewController" {
@@ -52,5 +54,6 @@ class MainMenuViewController: UIViewController {
                 toDoItems = decodedItems
             }
         }
-}
+ }
+
 

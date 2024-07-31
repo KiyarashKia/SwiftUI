@@ -63,10 +63,9 @@ class AddReminderViewController: UIViewController, UITextViewDelegate {
         
         print("Title: \(title), Description: \(description), Due Date: \(dueDate)")
 
-        // Optionally, pass data back to the previous view controller or save it in a data model
+        performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+        
 
-        // Dismiss the view controller
-        self.dismiss(animated: true, completion: nil)
     }
     
     func saveToDoItems() {

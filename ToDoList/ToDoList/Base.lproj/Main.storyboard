@@ -133,7 +133,7 @@
                         <outlet property="createNewListButton" destination="b6z-4A-0NL" id="48F-5m-cMb"/>
                         <outlet property="viewListsButton" destination="ipd-w7-faB" id="iYX-fx-Hd5"/>
                         <segue destination="Chs-7s-3WH" kind="show" identifier="AddReminderViewController" id="PCC-Q1-lCs"/>
-                        <segue destination="AMx-vc-Gs2" kind="show" identifier="showToDoList" id="dJg-Cu-Poa"/>
+                        <segue destination="fYO-Lf-qIT" kind="showDetail" identifier="showToDoList" id="LAC-44-FGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVx-0A-w6r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -149,7 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="XS0-s3-BEv">
-                                <rect key="frame" x="36" y="134" width="320" height="575.33333333333337"/>
+                                <rect key="frame" x="36" y="89" width="320" height="575.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXc-cE-enh">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="20.333333333333332"/>
@@ -189,6 +189,7 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Save"/>
                                         <connections>
                                             <action selector="saveReminder:" destination="Chs-7s-3WH" eventType="touchUpInside" id="I2L-Ge-r9G"/>
+                                            <segue destination="Skc-13-s0D" kind="presentation" identifier="unwindToMainMenu" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="97D-7O-5Oc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -203,9 +204,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XS0-s3-BEv" firstAttribute="leading" secondItem="JO0-DZ-lZG" secondAttribute="leading" constant="36" id="2h5-Px-iy8"/>
-                            <constraint firstItem="XS0-s3-BEv" firstAttribute="top" secondItem="JO0-DZ-lZG" secondAttribute="top" constant="134" id="3Pc-ii-Fin"/>
+                            <constraint firstItem="XS0-s3-BEv" firstAttribute="top" secondItem="JO0-DZ-lZG" secondAttribute="top" constant="89" id="3Pc-ii-Fin"/>
                             <constraint firstItem="XS0-s3-BEv" firstAttribute="centerX" secondItem="njD-Wv-OTX" secondAttribute="centerX" id="DF5-kV-cn2"/>
-                            <constraint firstItem="JO0-DZ-lZG" firstAttribute="bottom" secondItem="XS0-s3-BEv" secondAttribute="bottom" constant="132.66666666666663" id="Qcd-jC-czN"/>
+                            <constraint firstItem="JO0-DZ-lZG" firstAttribute="bottom" secondItem="XS0-s3-BEv" secondAttribute="bottom" constant="177.66666666666663" id="Qcd-jC-czN"/>
                             <constraint firstItem="XS0-s3-BEv" firstAttribute="centerX" secondItem="njD-Wv-OTX" secondAttribute="centerX" id="zc8-tc-2sp"/>
                         </constraints>
                     </view>
@@ -220,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nf-37-h4h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881.679389312977" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="1891" y="-15"/>
         </scene>
         <!--To Do List View Controller-->
         <scene sceneID="jcE-xg-0VM">
@@ -250,16 +251,43 @@
                             <outlet property="delegate" destination="AMx-vc-Gs2" id="8MT-km-wvh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="xEb-Kp-u3t"/>
+                    <navigationItem key="navigationItem" id="xEb-Kp-u3t">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Zfn-Qy-lFM"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="GFb-dO-aw3" id="xDI-79-45n"/>
+                        <outlet property="editButton" destination="Zfn-Qy-lFM" id="cEe-2B-jSl"/>
+                        <segue destination="Chs-7s-3WH" kind="presentation" identifier="AddReminderViewController2" modalPresentationStyle="automatic" id="100-Uq-w1R"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ww-af-cHG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2730.5343511450383" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="3863.3587786259541" y="-27.464788732394368"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ve1-Ha-nGo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fYO-Lf-qIT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LvI-IG-pWH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AMx-vc-Gs2" kind="relationship" relationship="rootViewController" id="wPl-Ux-5vr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fd8-MJ-86X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2936.6412213740455" y="-27.464788732394368"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="100-Uq-w1R"/>
+        <segue reference="97D-7O-5Oc"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
