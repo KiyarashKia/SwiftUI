@@ -31,6 +31,7 @@ class AddReminderViewController: UIViewController, UITextViewDelegate {
         descriptionView.textColor = .lightGray
         
         loadToDoItems()
+
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {

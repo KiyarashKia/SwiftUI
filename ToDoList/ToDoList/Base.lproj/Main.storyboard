@@ -237,7 +237,7 @@
                             <color key="color" red="0.30000631529999999" green="0.26355593820000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoItems" id="b6I-6i-J7k">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomTableViewCell" id="b6I-6i-J7k">
                                 <rect key="frame" x="0.0" y="50" width="393" height="47.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b6I-6i-J7k" id="Jtz-bl-xXU">
@@ -257,7 +257,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="GFb-dO-aw3" id="xDI-79-45n"/>
-                        <outlet property="editButton" destination="Zfn-Qy-lFM" id="cEe-2B-jSl"/>
+                        <outlet property="editButton" destination="Zfn-Qy-lFM" id="wBK-b8-8pI"/>
                         <segue destination="Chs-7s-3WH" kind="presentation" identifier="AddReminderViewController2" modalPresentationStyle="automatic" id="100-Uq-w1R"/>
                     </connections>
                 </tableViewController>
