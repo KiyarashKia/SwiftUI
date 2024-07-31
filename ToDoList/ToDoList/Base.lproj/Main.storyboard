@@ -160,7 +160,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title.." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-n6-TLL">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-n6-TLL">
                                         <rect key="frame" x="0.0" y="52.333333333333343" width="320" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="4yz-5N-sMK"/>
@@ -170,17 +170,15 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="UO4-ui-xHD">
-                                        <rect key="frame" x="0.0" y="103.33333333333334" width="320" height="217.00000000000003"/>
+                                        <rect key="frame" x="0.0" y="103.33333333333333" width="320" height="208.33333333333337"/>
                                     </datePicker>
-                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UoS-OM-tKw">
-                                        <rect key="frame" x="0.0" y="352.33333333333331" width="320" height="151.33333333333331"/>
+                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoS-OM-tKw">
+                                        <rect key="frame" x="0.0" y="343.66666666666669" width="320" height="160"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="150.66999999999999" id="2F8-LA-99j"/>
                                             <constraint firstAttribute="width" constant="320" id="FYL-8z-Wlt"/>
                                         </constraints>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb0-hk-9r0">

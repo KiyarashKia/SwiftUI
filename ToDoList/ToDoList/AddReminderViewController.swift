@@ -16,26 +16,41 @@ class AddReminderViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var listNumberLabel: UILabel!
 
     var listNumber: Int = 1
-    let placeholderText = "What are you going to do on that day?"
+    let descriptionPlaceholder = "What are you going to do on that day?"
     var toDoItems: [ToDoItem] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Update the top label with the list number
         listNumberLabel.text = "List \(listNumber)"
         
+        // Set up the description view
         descriptionView.delegate = self
-        
-        descriptionView.text = placeholderText
+        descriptionView.text = descriptionPlaceholder
         descriptionView.textColor = .lightGray
         
+        // Load existing to-do items
         loadToDoItems()
-
+        
+        // Disable the save button initially
+        saveButton.isEnabled = false
+        
+        // Add target to monitor text changes in the title field
+        titleField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        // Enable save button if the title field is not empty
+        let title = titleField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        saveButton.isEnabled = !title.isEmpty
+    }
+    
+    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == placeholderText {
+        if textView.text == descriptionPlaceholder {
             textView.text = ""
             textView.textColor = .black
         }
@@ -44,7 +59,7 @@ class AddReminderViewController: UIViewController, UITextViewDelegate {
     // UITextViewDelegate method
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = placeholderText
+            textView.text = descriptionPlaceholder
             textView.textColor = .lightGray
         }
     }
@@ -55,19 +70,23 @@ class AddReminderViewController: UIViewController, UITextViewDelegate {
         let dueDate = datePicker.date
 
 
-        let newItem = ToDoItem(title: title, description: description, dueDate: dueDate)
-        
-        toDoItems.append(newItem)
-        
-        // Save the array to UserDefaults
-        saveToDoItems()
-        
-        print("Title: \(title), Description: \(description), Due Date: \(dueDate)")
+        if title.isEmpty {
+               showAlert(message: "The title field is required. Please enter a title.")
+               return
+           }
+           
+           // Continue with saving the reminder if title is filled
+           let newItem = ToDoItem(title: title, description: description, dueDate: dueDate)
+           toDoItems.append(newItem)
+           saveToDoItems()
+           performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+       }
 
-        performSegue(withIdentifier: "unwindToMainMenu", sender: self)
-        
-
-    }
+       func showAlert(message: String) {
+           let alert = UIAlertController(title: "Invalid Input", message: message, preferredStyle: .alert)
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+           present(alert, animated: true, completion: nil)
+       }
     
     func saveToDoItems() {
         // Convert the array to Data

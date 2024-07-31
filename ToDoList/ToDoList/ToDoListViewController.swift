@@ -80,12 +80,96 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         let item = toDoItems[indexPath.row]
+
+        // Remove any existing subviews in case the cell is being reused
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+
+        // Title Label (always visible)
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        titleLabel.text = item.title
+        titleLabel.numberOfLines = 0
+
+        // Update the cell's appearance based on whether the item is done
+        if item.isDone {
+            cell.contentView.backgroundColor = .lightGray
+            titleLabel.textColor = .white
+        } else {
+            cell.contentView.backgroundColor = .white
+            titleLabel.textColor = .black
+        }
+
+        // Expanded Content (visible when expanded)
+        let titleLabel2 = UILabel()
+        titleLabel2.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        titleLabel2.text = "Title: \(item.title)"
+        titleLabel2.numberOfLines = 0
+
+        let dueDateLabel = UILabel()
+        dueDateLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        dueDateLabel.text = "Due: \(formattedDate(item.dueDate))"
+        dueDateLabel.numberOfLines = 0
+
+        let descriptionLabel = UILabel()
+        descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.text = "Description: \(item.description)"
+
+        let separatorLine = UIView()
+        separatorLine.backgroundColor = .lightGray
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+        // Create and configure the stack view
+        let stackView = UIStackView(arrangedSubviews: [titleLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+
+        func createSpacer(height: CGFloat = 8) -> UIView {
+            let spacer = UIView()
+            spacer.translatesAutoresizingMaskIntoConstraints = false
+            spacer.heightAnchor.constraint(equalToConstant: height).isActive = true
+            return spacer
+        }
+        
+        // If expanded, add additional content
+        if item.isExpanded {
+            stackView.addArrangedSubview(separatorLine)
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(titleLabel2)
+            stackView.addArrangedSubview(dueDateLabel)
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(descriptionLabel)
+        }
+
+        // Add the stack view to the cell's content view
+        cell.contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+            stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
+            stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
+        ])
+
+        // Add a chevron indicating expandable state
+        let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
+        cell.accessoryView = chevron
+
+        return cell
+    }
+
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        toDoItems[indexPath.row].isExpanded.toggle()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
+    func formattedDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
-        let dueDateString = dateFormatter.string(from: item.dueDate)
-        cell.textLabel?.text = "\(item.title) - \(dueDateString)"
-        return cell
+        return dateFormatter.string(from: date)
     }
     
     // Enable swipe to delete on the trailing side
@@ -120,48 +204,66 @@ class ToDoListViewController: UITableViewController {
     
     // Function to mark an item as done
     func markItemAsDone(at indexPath: IndexPath) {
-        
-        // Temporarily change the appearance of the cell to indicate it's done
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.contentView.backgroundColor = .lightGray
-            cell.textLabel?.text = "Done and Disappearing.."
-            cell.textLabel?.textColor = .white
-            
-            // Add an "Undo" button
-            let undoButton = UIButton(type: .system)
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+
+        // Create an overlay view that covers the entire cell content
+        let overlayView = UIView()
+        overlayView.backgroundColor = .lightGray
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+
+        let doneLabel = UILabel()
+        doneLabel.text = " Done and Disappearing.."
+        doneLabel.textColor = .white
+        doneLabel.translatesAutoresizingMaskIntoConstraints = false
+        doneLabel.textAlignment = .left
+
+        overlayView.addSubview(doneLabel)
+        cell.contentView.addSubview(overlayView)
+
+        // Constraints to make the overlay cover the entire cell
+        NSLayoutConstraint.activate([
+            overlayView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+            overlayView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+
+            doneLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor)
+        ])
+
+        // Add an "Undo" button
+        let undoButton = UIButton(type: .system)
             undoButton.setTitle("Undo", for: .normal)
             undoButton.setTitleColor(.white, for: .normal)
             undoButton.backgroundColor = .systemRed
             undoButton.addTarget(self, action: #selector(undoButtonTapped(_:)), for: .touchUpInside)
-            undoButton.frame = CGRect(x: cell.contentView.frame.width - 60, y: 0, width: 70, height: cell.contentView.frame.height)
+            undoButton.frame = CGRect(x: cell.contentView.frame.width - 70, y: 0, width: 70, height: cell.contentView.frame.height)
+
+            // Ensure the "Undo" button appears above all other subviews
             cell.contentView.addSubview(undoButton)
-            
+            cell.contentView.bringSubviewToFront(undoButton)
+
             activityIndicator.isHidden = false
-        }
-        
-        // Show the activity indicator
-        activityIndicator.startAnimating()
-        
-        // Create a DispatchWorkItem to remove the item after a delay
-        let removalWorkItem = DispatchWorkItem {
-            self.toDoItems.remove(at: indexPath.row)
-            self.saveToDoItems()
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            // Hide the activity indicator
-            self.activityIndicator.stopAnimating()
-            
-            if self.toDoItems.isEmpty {
-                self.showNoItemsAlert()
+
+            // Create a DispatchWorkItem to remove the item after a delay
+            let removalWorkItem = DispatchWorkItem {
+                self.toDoItems.remove(at: indexPath.row)
+                self.saveToDoItems()
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+
+                // Hide the activity indicator
+                self.activityIndicator.stopAnimating()
+
+                if self.toDoItems.isEmpty {
+                    self.showNoItemsAlert()
+                }
             }
+
+            // Store the work item so it can be canceled if needed
+            removalWorkItems[indexPath] = removalWorkItem
+
+            // Delay removal of the item
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: removalWorkItem)
         }
-        
-        // Store the work item so it can be canceled if needed
-        removalWorkItems[indexPath] = removalWorkItem
-        
-        // Delay removal of the item
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: removalWorkItem)
-    }
     
     @objc func undoButtonTapped(_ sender: UIButton) {
         if let cell = sender.superview?.superview as? UITableViewCell,
@@ -169,31 +271,88 @@ class ToDoListViewController: UITableViewController {
             undoItem(at: indexPath)
         }
     }
-    
+
     func undoItem(at indexPath: IndexPath) {
         // Cancel the removal work item
         removalWorkItems[indexPath]?.cancel()
         removalWorkItems[indexPath] = nil
-        
+
+        // Restore the item state
+        toDoItems[indexPath.row].isDone = false
+
         // Restore the appearance of the cell
         if let cell = tableView.cellForRow(at: indexPath) {
             let item = toDoItems[indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
-            dateFormatter.timeStyle = .short
-            let dueDateString = dateFormatter.string(from: item.dueDate)
-            cell.contentView.backgroundColor = .white
-            cell.textLabel?.text = "\(item.title) - \(dueDateString)"
-            cell.textLabel?.textColor = .black
+
+            // To ensure resetting and removing elements after
+            cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+            cell.textLabel?.text = nil
+
             
-            // Remove the "Undo" button
-            for subview in cell.contentView.subviews where subview is UIButton {
-                subview.removeFromSuperview()
+            // Rebuild the cell's UI as it was before the item was marked as done
+            let titleLabel = UILabel()
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            titleLabel.text = item.title
+            titleLabel.numberOfLines = 0
+
+            let titleLabel2 = UILabel()
+            titleLabel2.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            titleLabel2.text = "Title: \(item.title)"
+            titleLabel2.numberOfLines = 0
+
+            let dueDateLabel = UILabel()
+            dueDateLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            dueDateLabel.text = "Due: \(formattedDate(item.dueDate))"
+            dueDateLabel.numberOfLines = 0
+
+            let descriptionLabel = UILabel()
+            descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            descriptionLabel.numberOfLines = 0
+            descriptionLabel.text = "Description: \(item.description)"
+
+            let separatorLine = UIView()
+            separatorLine.backgroundColor = .lightGray
+            separatorLine.translatesAutoresizingMaskIntoConstraints = false
+            separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+            let stackView = UIStackView(arrangedSubviews: [titleLabel])
+            stackView.axis = .vertical
+            stackView.spacing = 4
+
+            func createSpacer(height: CGFloat = 8) -> UIView {
+                let spacer = UIView()
+                spacer.translatesAutoresizingMaskIntoConstraints = false
+                spacer.heightAnchor.constraint(equalToConstant: height).isActive = true
+                return spacer
             }
+
+            if item.isExpanded {
+                stackView.addArrangedSubview(separatorLine)
+                stackView.addArrangedSubview(createSpacer())
+                stackView.addArrangedSubview(titleLabel2)
+                stackView.addArrangedSubview(dueDateLabel)
+                stackView.addArrangedSubview(createSpacer())
+                stackView.addArrangedSubview(descriptionLabel)
+            }
+
+            cell.contentView.addSubview(stackView)
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                stackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16),
+                stackView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+                stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
+                stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
+            ])
+
+            let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
+            cell.accessoryView = chevron
+
+            // Restore the background color and any other temporary changes
+            cell.contentView.backgroundColor = .white
             activityIndicator.isHidden = true
         }
-        
     }
+        
     func saveToDoItems() {
         if let encodedData = try? JSONEncoder().encode(toDoItems) {
             UserDefaults.standard.set(encodedData, forKey: "toDoItems")
