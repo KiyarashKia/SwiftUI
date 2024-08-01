@@ -18,6 +18,7 @@
 		3D5753632C58624500B022C7 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753622C58624500B022C7 /* AddReminderViewController.swift */; };
 		3D5753652C586A4B00B022C7 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753642C586A4B00B022C7 /* ToDoItem.swift */; };
 		3D5753672C586DB200B022C7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753662C586DB200B022C7 /* ToDoListViewController.swift */; };
+		3D865D452C5BFE2A00FC0C70 /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3D5753622C58624500B022C7 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 		3D5753642C586A4B00B022C7 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		3D5753662C586DB200B022C7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				3D5753622C58624500B022C7 /* AddReminderViewController.swift */,
 				3D5753642C586A4B00B022C7 /* ToDoItem.swift */,
 				3D5753662C586DB200B022C7 /* ToDoListViewController.swift */,
+				3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				3D5753652C586A4B00B022C7 /* ToDoItem.swift in Sources */,
 				3D10C1A22C55B1F300F9A905 /* AppDelegate.swift in Sources */,
 				3D10C1A42C55B1F300F9A905 /* SceneDelegate.swift in Sources */,
+				3D865D452C5BFE2A00FC0C70 /* ToDoTableViewCell.swift in Sources */,
 				3D5753632C58624500B022C7 /* AddReminderViewController.swift in Sources */,
 				3D10C1B62C55CB4400F9A905 /* SplashViewController.swift in Sources */,
 			);

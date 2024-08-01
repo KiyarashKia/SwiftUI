@@ -15,11 +15,15 @@ class ToDoListViewController: UITableViewController {
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register a standard cell
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ToDoItemCell")
+        
+        tableView.rowHeight = UITableView.automaticDimension
+           tableView.estimatedRowHeight = 100
         
         showGuidingAlert()
         
@@ -72,10 +76,6 @@ class ToDoListViewController: UITableViewController {
         navigationItem.rightBarButtonItems?[0].title = tableView.isEditing ? "Done" : "Edit"
     }
     
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoItems.count
-    }
     
     @objc func shareButtonTapped(_ sender: UIButton) {
         // Find the index path of the cell containing the button
@@ -96,8 +96,12 @@ class ToDoListViewController: UITableViewController {
         present(activityViewController, animated: true, completion: nil)
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return toDoItems.count
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Reuse or create a UITableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         let item = toDoItems[indexPath.row]
 
@@ -130,7 +134,7 @@ class ToDoListViewController: UITableViewController {
             spacer.heightAnchor.constraint(equalToConstant: height).isActive = true
             return spacer
         }
-        
+
         // If expanded, add additional content
         if item.isExpanded {
             let separatorLine = UIView()
@@ -153,6 +157,42 @@ class ToDoListViewController: UITableViewController {
             descriptionLabel.numberOfLines = 0
             descriptionLabel.text = "Description: \(item.description)"
 
+            // Configure the image view
+            let imageView = UIImageView()
+
+            if let imageData = item.imageData {
+                imageView.image = UIImage(data: imageData)
+                imageView.contentMode = .scaleAspectFit
+                imageView.clipsToBounds = true
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.isHidden = false
+
+                // Remove any existing constraints to avoid conflicts
+                imageView.removeConstraints(imageView.constraints)
+
+                // Add the imageView to the content view of the cell
+                cell.contentView.addSubview(imageView)
+
+                // Ensure the imageView is on top
+                cell.contentView.bringSubviewToFront(imageView)
+
+                // Add constraints to position the image view in the bottom left corner of the cell
+                NSLayoutConstraint.activate([
+                    imageView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16), // 16 points from the left edge
+                    imageView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6), // 6 points from the bottom edge (same as shareButton)
+                    imageView.widthAnchor.constraint(equalToConstant: 50), // Width of 50 points
+                    imageView.heightAnchor.constraint(equalToConstant: 50) // Height of 50 points
+                ])
+                
+                // Add a long press gesture recognizer for image expansion
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+                imageView.isUserInteractionEnabled = true
+                imageView.addGestureRecognizer(longPressGesture)
+            } else {
+                imageView.image = nil
+                imageView.isHidden = true // Hide the image view if there's no image
+            }
+
             stackView.addArrangedSubview(separatorLine)
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(titleLabel2)
@@ -164,6 +204,7 @@ class ToDoListViewController: UITableViewController {
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(createSpacer())
+            
         }
 
         // Add the stack view to the cell's content view
@@ -175,7 +216,7 @@ class ToDoListViewController: UITableViewController {
             stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
             stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
         ])
-        
+
         // Add the share button directly to the contentView, outside of the stack view
         if item.isExpanded {
             let shareButton = UIButton(type: .system)
@@ -188,26 +229,24 @@ class ToDoListViewController: UITableViewController {
             NSLayoutConstraint.activate([
                 shareButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
                 shareButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6),
-                shareButton.heightAnchor.constraint(equalToConstant: 30), // Ensure it's clickable
+                shareButton.heightAnchor.constraint(equalToConstant: 30),
                 shareButton.widthAnchor.constraint(equalToConstant: 30)
             ])
         }
 
         // Add a chevron indicating expandable state
         let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
-          chevron.translatesAutoresizingMaskIntoConstraints = false
-          cell.contentView.addSubview(chevron)
-          NSLayoutConstraint.activate([
-              chevron.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
-              chevron.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
-              chevron.heightAnchor.constraint(equalToConstant: 20), // Adjust height as needed
-              chevron.widthAnchor.constraint(equalToConstant: 20)
-          ])
+        chevron.translatesAutoresizingMaskIntoConstraints = false
+        cell.contentView.addSubview(chevron)
+        NSLayoutConstraint.activate([
+            chevron.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+            chevron.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
+            chevron.heightAnchor.constraint(equalToConstant: 20),
+            chevron.widthAnchor.constraint(equalToConstant: 20)
+        ])
 
         return cell
     }
-
-
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         toDoItems[indexPath.row].isExpanded.toggle()
@@ -457,5 +496,40 @@ class ToDoListViewController: UITableViewController {
             }
         }
        
+    
+    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            guard let imageView = gesture.view as? UIImageView, let image = imageView.image else { return }
+            
+            // Create a full-screen image view
+            let fullScreenImageView = UIImageView(image: image)
+            fullScreenImageView.frame = self.view.bounds
+            fullScreenImageView.backgroundColor = .black
+            fullScreenImageView.contentMode = .scaleAspectFit
+            fullScreenImageView.isUserInteractionEnabled = true
+            
+            // Add a tap gesture to dismiss the full-screen image
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissFullScreenImage(_:)))
+            fullScreenImageView.addGestureRecognizer(tapGesture)
+            
+            // Add the image view to the view controller's view
+            self.view.addSubview(fullScreenImageView)
+            
+            // Animate the appearance of the full-screen image view
+            fullScreenImageView.alpha = 0
+            UIView.animate(withDuration: 0.3) {
+                fullScreenImageView.alpha = 1.0
+            }
+        }
+    }
+
+    @objc func dismissFullScreenImage(_ gesture: UITapGestureRecognizer) {
+        // Animate the dismissal of the full-screen image view
+        UIView.animate(withDuration: 0.3, animations: {
+            gesture.view?.alpha = 0
+        }) { _ in
+            gesture.view?.removeFromSuperview()
+        }
+    }
 }
 
