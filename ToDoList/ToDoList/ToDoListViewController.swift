@@ -72,10 +72,30 @@ class ToDoListViewController: UITableViewController {
         navigationItem.rightBarButtonItems?[0].title = tableView.isEditing ? "Done" : "Edit"
     }
     
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoItems.count
     }
+    
+    @objc func shareButtonTapped(_ sender: UIButton) {
+        // Find the index path of the cell containing the button
+        guard let cell = sender.superview?.superview as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+
+        let item = toDoItems[indexPath.row]
+        let shareText = "Title: \(item.title)\nDue: \(formattedDate(item.dueDate))\nDescription: \(item.description)"
+        
+        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        
+        // For iPads, present the activity view controller properly
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+        }
+        
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
@@ -99,28 +119,7 @@ class ToDoListViewController: UITableViewController {
             titleLabel.textColor = .black
         }
 
-        // Expanded Content (visible when expanded)
-        let titleLabel2 = UILabel()
-        titleLabel2.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        titleLabel2.text = "Title: \(item.title)"
-        titleLabel2.numberOfLines = 0
-
-        let dueDateLabel = UILabel()
-        dueDateLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        dueDateLabel.text = "Due: \(formattedDate(item.dueDate))"
-        dueDateLabel.numberOfLines = 0
-
-        let descriptionLabel = UILabel()
-        descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.text = "Description: \(item.description)"
-
-        let separatorLine = UIView()
-        separatorLine.backgroundColor = .lightGray
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-
-        // Create and configure the stack view
+        // Create and configure the stack view for expanded content
         let stackView = UIStackView(arrangedSubviews: [titleLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
@@ -134,12 +133,37 @@ class ToDoListViewController: UITableViewController {
         
         // If expanded, add additional content
         if item.isExpanded {
+            let separatorLine = UIView()
+            separatorLine.backgroundColor = .lightGray
+            separatorLine.translatesAutoresizingMaskIntoConstraints = false
+            separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+            let titleLabel2 = UILabel()
+            titleLabel2.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            titleLabel2.text = "Title: \(item.title)"
+            titleLabel2.numberOfLines = 0
+
+            let dueDateLabel = UILabel()
+            dueDateLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            dueDateLabel.text = "Due: \(formattedDate(item.dueDate))"
+            dueDateLabel.numberOfLines = 0
+
+            let descriptionLabel = UILabel()
+            descriptionLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            descriptionLabel.numberOfLines = 0
+            descriptionLabel.text = "Description: \(item.description)"
+
             stackView.addArrangedSubview(separatorLine)
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(titleLabel2)
             stackView.addArrangedSubview(dueDateLabel)
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(descriptionLabel)
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(createSpacer())
         }
 
         // Add the stack view to the cell's content view
@@ -151,13 +175,38 @@ class ToDoListViewController: UITableViewController {
             stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
             stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
         ])
+        
+        // Add the share button directly to the contentView, outside of the stack view
+        if item.isExpanded {
+            let shareButton = UIButton(type: .system)
+            shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+            shareButton.tintColor = .systemYellow
+            shareButton.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
+
+            cell.contentView.addSubview(shareButton)
+            shareButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                shareButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+                shareButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6),
+                shareButton.heightAnchor.constraint(equalToConstant: 30), // Ensure it's clickable
+                shareButton.widthAnchor.constraint(equalToConstant: 30)
+            ])
+        }
 
         // Add a chevron indicating expandable state
         let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
-        cell.accessoryView = chevron
+          chevron.translatesAutoresizingMaskIntoConstraints = false
+          cell.contentView.addSubview(chevron)
+          NSLayoutConstraint.activate([
+              chevron.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+              chevron.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
+              chevron.heightAnchor.constraint(equalToConstant: 20), // Adjust height as needed
+              chevron.widthAnchor.constraint(equalToConstant: 20)
+          ])
 
         return cell
     }
+
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -344,8 +393,9 @@ class ToDoListViewController: UITableViewController {
                 stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
             ])
 
-            let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
-            cell.accessoryView = chevron
+            // Add a chevron indicating expandable state
+                  let chevron = UIImageView(image: UIImage(systemName: item.isExpanded ? "chevron.up" : "chevron.down"))
+                  cell.accessoryView = chevron
 
             // Restore the background color and any other temporary changes
             cell.contentView.backgroundColor = .white
@@ -407,6 +457,5 @@ class ToDoListViewController: UITableViewController {
             }
         }
        
-
 }
 

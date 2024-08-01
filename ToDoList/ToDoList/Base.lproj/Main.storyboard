@@ -161,25 +161,22 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-n6-TLL">
-                                        <rect key="frame" x="0.0" y="52.333333333333343" width="320" height="19"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="19" id="4yz-5N-sMK"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="52.333333333333343" width="320" height="34"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="UO4-ui-xHD">
-                                        <rect key="frame" x="0.0" y="103.33333333333333" width="320" height="208.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="118.33333333333334" width="320" height="217.00000000000003"/>
                                     </datePicker>
-                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoS-OM-tKw">
-                                        <rect key="frame" x="0.0" y="343.66666666666669" width="320" height="160"/>
+                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" layoutManager="textKit1" translatesAutoresizingMaskIntoConstraints="NO" id="UoS-OM-tKw">
+                                        <rect key="frame" x="0.0" y="367.33333333333331" width="320" height="136.33333333333331"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="150.66999999999999" id="2F8-LA-99j"/>
                                             <constraint firstAttribute="width" constant="320" id="FYL-8z-Wlt"/>
                                         </constraints>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb0-hk-9r0">
                                         <rect key="frame" x="0.0" y="535.66666666666663" width="320" height="39.666666666666629"/>
