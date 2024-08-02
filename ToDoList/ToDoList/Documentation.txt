@@ -1,0 +1,39 @@
+
+- By Kiarash Kia
+108688235
+
+MAP Course Summer 2024
+
+Overview
+
+This To-Do List app is crafted with a focus on simplicity and efficiency, while incorporating thoughtful enhancements (as far as my time let me) to enhance the user experience. At its core, the app facilitates the creation, management, and organization of tasks, but it goes beyond basic functionality by integrating features of my own like an Undo operation for marked tasks and an animated gradient splash screen. These additions are designed to make the app not only functional but also visually appealing and user-friendly.
+
+Features I Added
+
+    •    Undo Operation for Marking Tasks as Done:
+Mistakes happen, and this feature ensures users can easily undo an accidental task completion. When a task is marked as done, an overlay with an “Undo” option appears. If the user selects “Undo” within the allotted time, the task reverts to its original state.
+    •    Animated Gradient Splash Screen:
+To create a smooth and engaging first impression, the app opens with a gradient splash screen that transitions between colors, providing a polished start to the user experience.
+
+Implementation Details
+
+Undo Operation for Marking Tasks as Done
+
+    •    markItemAsDone(at indexPath: IndexPath):
+This function handles the marking of tasks as done. It overlays the task with a “Done” label and an “Undo” button. A DispatchWorkItem is queued to remove the task after a brief delay unless the “Undo” button is pressed.
+    •    undoButtonTapped(_:):
+Activated when the “Undo” button is pressed, this function cancels the scheduled removal of the task and reverts it to its previous state.
+    •    undoItem(at indexPath: IndexPath):
+Responsible for resetting the UI and restoring the task’s state, this function ensures that the task remains in the list if the undo operation is performed.
+
+Animated Gradient Splash Screen
+
+    •    SplashViewController:
+The app also aims to create a polished first impression through an animated gradient splash screen. This visual element is managed by the SplashViewController, where a gradient layer is animated in the viewDidLoad() method to transition smoothly between colors. This dynamic effect adds a touch of sophistication and engagement right from the moment the app is launched.
+
+
+The only thing unfortunately I couldnt make due to lack of time, is the editing each list and changing its values and data.
+
+-- Thanks
+-- Kiarash Kia
+-- July 2024

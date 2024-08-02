@@ -19,6 +19,7 @@
 		3D5753652C586A4B00B022C7 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753642C586A4B00B022C7 /* ToDoItem.swift */; };
 		3D5753672C586DB200B022C7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5753662C586DB200B022C7 /* ToDoListViewController.swift */; };
 		3D865D452C5BFE2A00FC0C70 /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */; };
+		3D865D472C5C734400FC0C70 /* Documentation.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D865D462C5C734400FC0C70 /* Documentation.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		3D5753642C586A4B00B022C7 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		3D5753662C586DB200B022C7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
+		3D865D462C5C734400FC0C70 /* Documentation.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Documentation.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				3D5753642C586A4B00B022C7 /* ToDoItem.swift */,
 				3D5753662C586DB200B022C7 /* ToDoListViewController.swift */,
 				3D865D442C5BFE2A00FC0C70 /* ToDoTableViewCell.swift */,
+				3D865D462C5C734400FC0C70 /* Documentation.txt */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D10C1AB2C55B1F400F9A905 /* Assets.xcassets in Resources */,
+				3D865D472C5C734400FC0C70 /* Documentation.txt in Resources */,
 				3D10C1AE2C55B1F400F9A905 /* Base in Resources */,
 				3D10C1A92C55B1F300F9A905 /* Base in Resources */,
 			);

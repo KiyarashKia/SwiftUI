@@ -12,20 +12,35 @@ class ToDoListViewController: UITableViewController {
     var toDoItems: [ToDoItem] = []
     var removalWorkItems: [IndexPath: DispatchWorkItem] = [:]
     
+    // Outlets
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupView()
+        
+        loadToDoItems()
+        
+        if !UserDefaults.standard.bool(forKey: "shouldShowGuidingAlert") {
+            showGuidingAlert()
+        } else if toDoItems.isEmpty {
+            showNoItemsAlert()
+        }
+    }
+    
+    // MARK: - View Setup
+    func setupView() {
         // Register a standard cell
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ToDoItemCell")
         
+        // Configuring table view's height of row
         tableView.rowHeight = UITableView.automaticDimension
-           tableView.estimatedRowHeight = 100
-        
-        showGuidingAlert()
+        tableView.estimatedRowHeight = 100
+    
         
         // Add an Edit button to the navigation bar
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
@@ -41,16 +56,11 @@ class ToDoListViewController: UITableViewController {
           navigationItem.leftBarButtonItems = [sortBarButtonItem]
           navigationItem.rightBarButtonItem = editButton
         
+        // Initially hide the activity indicator
         activityIndicator.isHidden = true
-        
-        loadToDoItems()
-        
-        if toDoItems.isEmpty {
-            showNoItemsAlert()
-        }
     }
     
-    
+    // MARK: - Sorting
     func createSortMenu() -> UIMenu {
         // Create actions for sorting
         let sortByTitleAction = UIAction(title: "Title", image: nil) { _ in
@@ -65,18 +75,43 @@ class ToDoListViewController: UITableViewController {
             self.saveToDoItems()
         }
         
-        // Create the menu
-        let menu = UIMenu(title: "Sort by", children: [sortByTitleAction, sortByDateAction])
-        
-        return menu
+        // Create the menu and returning it
+        return UIMenu(title: "Sort by", children: [sortByTitleAction, sortByDateAction])
     }
     
+    
+    func showGuidingAlert() {
+        let alert = UIAlertController(title: "How to Use", message: "To delete an item, swipe left. To mark an item as done, swipe right. And to see the image, hold on the thumbnail", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Got it", style: .default) { _ in
+            UserDefaults.standard.set(true, forKey: "shouldShowGuidingAlert") // Don't show again
+            if self.toDoItems.isEmpty {
+                self.showNoItemsAlert()
+            }
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showNoItemsAlert() {
+        let alert = UIAlertController(title: "No Items", message: "You have no items in your to-do list. Would you like to create a new one?", preferredStyle: .alert)
+        let createAction = UIAlertAction(title: "Create", style: .default) { _ in
+            self.performSegue(withIdentifier: "AddReminderViewController2", sender: self)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(createAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Button Actions
+    
+    // Toggle editing mode
     @objc func editButtonTapped() {
         tableView.setEditing(!tableView.isEditing, animated: true)
         navigationItem.rightBarButtonItems?[0].title = tableView.isEditing ? "Done" : "Edit"
     }
     
-    
+    // Share button action
     @objc func shareButtonTapped(_ sender: UIButton) {
         // Find the index path of the cell containing the button
         guard let cell = sender.superview?.superview as? UITableViewCell,
@@ -85,21 +120,28 @@ class ToDoListViewController: UITableViewController {
         let item = toDoItems[indexPath.row]
         let shareText = "Title: \(item.title)\nDue: \(formattedDate(item.dueDate))\nDescription: \(item.description)"
         
-        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        var itemsToShare: [Any] = [shareText]
         
-        // For iPads, present the activity view controller properly
-        if let popoverController = activityViewController.popoverPresentationController {
-            popoverController.sourceView = sender
-            popoverController.sourceRect = sender.bounds
+        // If there's an image, add it to the items to share
+        if let imageData = item.imageData, let image = UIImage(data: imageData) {
+            itemsToShare.append(image)
         }
         
+        // Sharing section
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        
+       
         present(activityViewController, animated: true, completion: nil)
     }
     
+    // MARK: - TableView Data Source
+    
+    // Number of rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoItems.count
     }
     
+    // Configure cell at indexPath
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Reuse or create a UITableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
@@ -113,6 +155,11 @@ class ToDoListViewController: UITableViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         titleLabel.text = item.title
         titleLabel.numberOfLines = 0
+        
+        // Create and configure the stack view for expanded content
+        let stackView = UIStackView(arrangedSubviews: [titleLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
 
         // Update the cell's appearance based on whether the item is done
         if item.isDone {
@@ -123,11 +170,7 @@ class ToDoListViewController: UITableViewController {
             titleLabel.textColor = .black
         }
 
-        // Create and configure the stack view for expanded content
-        let stackView = UIStackView(arrangedSubviews: [titleLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4
-
+        // Just to call to add space - empty line
         func createSpacer(height: CGFloat = 8) -> UIView {
             let spacer = UIView()
             spacer.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +178,7 @@ class ToDoListViewController: UITableViewController {
             return spacer
         }
 
-        // If expanded, add additional content
+        // If expanded, add additional content for each row
         if item.isExpanded {
             let separatorLine = UIView()
             separatorLine.backgroundColor = .lightGray
@@ -157,29 +200,26 @@ class ToDoListViewController: UITableViewController {
             descriptionLabel.numberOfLines = 0
             descriptionLabel.text = "Description: \(item.description)"
 
-            // Configure the image view
+            // Configure the image view for each list
             let imageView = UIImageView()
-
+            imageView.removeConstraints(imageView.constraints)
+            
             if let imageData = item.imageData {
                 imageView.image = UIImage(data: imageData)
                 imageView.contentMode = .scaleAspectFit
                 imageView.clipsToBounds = true
+                imageView.layer.cornerRadius = 15
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.isHidden = false
 
-                // Remove any existing constraints to avoid conflicts
-                imageView.removeConstraints(imageView.constraints)
-
-                // Add the imageView to the content view of the cell
-                cell.contentView.addSubview(imageView)
-
-                // Ensure the imageView is on top
-                cell.contentView.bringSubviewToFront(imageView)
-
-                // Add constraints to position the image view in the bottom left corner of the cell
+                
+                stackView.addArrangedSubview(descriptionLabel)
+                stackView.addArrangedSubview(imageView)
+                
+                // Apply constraints to ensure imageView is always below descriptionLabel
                 NSLayoutConstraint.activate([
-                    imageView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16), // 16 points from the left edge
-                    imageView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6), // 6 points from the bottom edge (same as shareButton)
+                    imageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor), // Align to the left edge of the stack view
+                    imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8), // Position just below the descriptionLabel
                     imageView.widthAnchor.constraint(equalToConstant: 50), // Width of 50 points
                     imageView.heightAnchor.constraint(equalToConstant: 50) // Height of 50 points
                 ])
@@ -191,6 +231,7 @@ class ToDoListViewController: UITableViewController {
             } else {
                 imageView.image = nil
                 imageView.isHidden = true // Hide the image view if there's no image
+                stackView.addArrangedSubview(descriptionLabel) // Just add the descriptionLabel without the image
             }
 
             stackView.addArrangedSubview(separatorLine)
@@ -204,9 +245,14 @@ class ToDoListViewController: UITableViewController {
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(createSpacer())
             stackView.addArrangedSubview(createSpacer())
+            stackView.addArrangedSubview(imageView)
             
         }
-
+        
+        // Align items to the leading edge (left side)
+        stackView.alignment = .leading
+       
+        
         // Add the stack view to the cell's content view
         cell.contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -216,6 +262,8 @@ class ToDoListViewController: UITableViewController {
             stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
             stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
         ])
+        
+        
 
         // Add the share button directly to the contentView, outside of the stack view
         if item.isExpanded {
@@ -248,11 +296,16 @@ class ToDoListViewController: UITableViewController {
         return cell
     }
     
+    // MARK: - TableView Delegate
+    
+    // Toggle expanded state
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         toDoItems[indexPath.row].isExpanded.toggle()
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
+    
+    // Formats a Date object into a string
     func formattedDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
@@ -260,7 +313,8 @@ class ToDoListViewController: UITableViewController {
         return dateFormatter.string(from: date)
     }
     
-    // Enable swipe to delete on the trailing side
+    
+    // Configure swipe actions for deletion
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             self.toDoItems.remove(at: indexPath.row)
@@ -276,7 +330,8 @@ class ToDoListViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    // Add a swipe action for marking items as done on the leading side
+    
+    // Configure swipe actions for marking as done
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // Create the "Done" action
         let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
@@ -289,6 +344,8 @@ class ToDoListViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [doneAction])
         
     }
+    
+    // MARK: - Mark Item as Done
     
     // Function to mark an item as done
     func markItemAsDone(at indexPath: IndexPath) {
@@ -308,7 +365,7 @@ class ToDoListViewController: UITableViewController {
         overlayView.addSubview(doneLabel)
         cell.contentView.addSubview(overlayView)
 
-        // Constraints to make the overlay cover the entire cell
+        // Constraints for overlay and done label
         NSLayoutConstraint.activate([
             overlayView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
             overlayView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
@@ -353,13 +410,9 @@ class ToDoListViewController: UITableViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: removalWorkItem)
         }
     
-    @objc func undoButtonTapped(_ sender: UIButton) {
-        if let cell = sender.superview?.superview as? UITableViewCell,
-           let indexPath = tableView.indexPath(for: cell) {
-            undoItem(at: indexPath)
-        }
-    }
 
+
+    // Undo item deletion
     func undoItem(at indexPath: IndexPath) {
         // Cancel the removal work item
         removalWorkItems[indexPath]?.cancel()
@@ -442,12 +495,24 @@ class ToDoListViewController: UITableViewController {
         }
     }
         
+    
+    @objc func undoButtonTapped(_ sender: UIButton) {
+        if let cell = sender.superview?.superview as? UITableViewCell,
+           let indexPath = tableView.indexPath(for: cell) {
+            undoItem(at: indexPath)
+        }
+    }
+    
+    // MARK: - Save/Load Items
+    
+    // Save items to UserDefaults
     func saveToDoItems() {
         if let encodedData = try? JSONEncoder().encode(toDoItems) {
             UserDefaults.standard.set(encodedData, forKey: "toDoItems")
         }
     }
     
+    // Load items from UserDefaults
     func loadToDoItems() {
         if let savedData = UserDefaults.standard.data(forKey: "toDoItems"),
            let decodedItems = try? JSONDecoder().decode([ToDoItem].self, from: savedData) {
@@ -473,47 +538,34 @@ class ToDoListViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    func showNoItemsAlert() {
-        let alert = UIAlertController(title: "No Items", message: "You have no items in your to-do list. Would you like to create a new one?", preferredStyle: .alert)
-        let createAction = UIAlertAction(title: "Create", style: .default) { _ in
-            self.performSegue(withIdentifier: "AddReminderViewController2", sender: self)
-            
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(createAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showGuidingAlert() {
-        if !UserDefaults.standard.bool(forKey: "hasShownGuidingAlert") {
-                let alert = UIAlertController(title: "How to Use", message: "To delete an item, swipe left. To mark an item as done, swipe right.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Got it", style: .default) { _ in
-                    UserDefaults.standard.set(true, forKey: "hasShownGuidingAlert")
-                }
-                alert.addAction(okAction)
-                present(alert, animated: true, completion: nil)
-            }
-        }
        
-    
+    // Handles long-press gesture to show an image full-screen
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             guard let imageView = gesture.view as? UIImageView, let image = imageView.image else { return }
             
             // Create a full-screen image view
             let fullScreenImageView = UIImageView(image: image)
-            fullScreenImageView.frame = self.view.bounds
+            fullScreenImageView.frame = UIScreen.main.bounds  // Set to full screen size
             fullScreenImageView.backgroundColor = .black
             fullScreenImageView.contentMode = .scaleAspectFit
+            fullScreenImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             fullScreenImageView.isUserInteractionEnabled = true
             
             // Add a tap gesture to dismiss the full-screen image
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissFullScreenImage(_:)))
             fullScreenImageView.addGestureRecognizer(tapGesture)
             
-            // Add the image view to the view controller's view
-            self.view.addSubview(fullScreenImageView)
+            // Get the current active window in iOS 13 and later
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                keyWindow.addSubview(fullScreenImageView)
+                keyWindow.bringSubviewToFront(fullScreenImageView)
+            } else {
+                // Fallback for earlier iOS versions
+                self.view.addSubview(fullScreenImageView)
+                self.view.bringSubviewToFront(fullScreenImageView)
+            }
             
             // Animate the appearance of the full-screen image view
             fullScreenImageView.alpha = 0
@@ -523,6 +575,8 @@ class ToDoListViewController: UITableViewController {
         }
     }
 
+
+    // Dismisses the full-screen image on tap
     @objc func dismissFullScreenImage(_ gesture: UITapGestureRecognizer) {
         // Animate the dismissal of the full-screen image view
         UIView.animate(withDuration: 0.3, animations: {
@@ -531,5 +585,6 @@ class ToDoListViewController: UITableViewController {
             gesture.view?.removeFromSuperview()
         }
     }
+    
 }
 

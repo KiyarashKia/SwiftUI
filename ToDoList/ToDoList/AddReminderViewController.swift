@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    // MARK: - Outlets and variables
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var descriptionView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -21,11 +23,13 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
     
     
     
-    var listNumber: Int = 1
+    var listNumber: Int = 1 // Tracks the current list number
+    
+    // Placeholder text for the description field
     let descriptionPlaceholder = "What are you going to do on that day?"
-    var toDoItems: [ToDoItem] = []
+    var toDoItems: [ToDoItem] = [] // Array to hold to-do items/
     
-    
+    // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,10 +50,16 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         // Add target to monitor text changes in the title field
         titleField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
+        // Add a long press gesture recognizer to the image view
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
            imageView.addGestureRecognizer(longPressGesture)
            imageView.isUserInteractionEnabled = true
     }
+    
+    
+    // MARK: - Text Field and Text View
+    
+    // Enable save button if the title field is not empty
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         // Enable save button if the title field is not empty
@@ -58,7 +68,7 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
     }
     
     
-    
+    // Clear placeholder text when editing begins
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == descriptionPlaceholder {
             textView.text = ""
@@ -66,7 +76,7 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         }
     }
     
-    // UITextViewDelegate method
+    // Restore placeholder text if description is empty
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = descriptionPlaceholder
@@ -74,22 +84,28 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         }
     }
     
+    // MARK: - Save Reminder
     @IBAction func saveReminder(_ sender: UIButton) {
+        // Capture input data
         let title = titleField.text ?? ""
         let description = descriptionView.text ?? ""
         let dueDate = datePicker.date
         
-        
+        // Convert selected image to data if available
         let selectedImage = imageView.image
-            let imageData = selectedImage?.jpegData(compressionQuality: 1.0)
-            
-            let newItem = ToDoItem(title: title, description: description, dueDate: dueDate, imageData: imageData)
+        let imageData = selectedImage?.jpegData(compressionQuality: 1.0)
+          
+        // Create and save a new to-do item
+        let newItem = ToDoItem(title: title, description: description, dueDate: dueDate, imageData: imageData)
             toDoItems.append(newItem)
             saveToDoItems()
-            performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+
+        // Segue back to the main menu
+        performSegue(withIdentifier: "unwindToMainMenu", sender: self)
         }
     
     
+    // Save the to-do items to UserDefaults
     func saveToDoItems() {
         // Convert the array to Data
         if let encodedData = try? JSONEncoder().encode(toDoItems) {
@@ -97,6 +113,8 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         }
     }
     
+    
+    // Load the to-do items from UserDefaults
     func loadToDoItems() {
         if let savedData = UserDefaults.standard.data(forKey: "toDoItems"),
            let decodedItems = try? JSONDecoder().decode([ToDoItem].self, from: savedData) {
@@ -104,13 +122,17 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         }
     }
     
+    // MARK: - Image Attachment
+    
     @IBAction func attachImage(_ sender: UIButton) {
+        // Open the photo library to select an image
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    // Handle image selection from the photo library
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             imageView.image = selectedImage
@@ -118,10 +140,12 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         dismiss(animated: true, completion: nil)
     }
     
+    // Handle cancellation of image picker
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Full-Screen Image Handling
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
@@ -152,6 +176,7 @@ class AddReminderViewController: UIViewController, UITextViewDelegate, UIImagePi
         }
     }
 
+    // Dismiss the full-screen image view on tap
     @objc func dismissFullScreenImage(_ gesture: UITapGestureRecognizer) {
         // Animate the dismissal of the full-screen view
         UIView.animate(withDuration: 0.3, animations: {
